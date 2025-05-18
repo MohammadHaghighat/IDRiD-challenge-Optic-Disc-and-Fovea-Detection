@@ -78,6 +78,7 @@ if __name__ == "__main__":
         print("Means: {}".format(image_mean))
         print("Stds: {}".format(image_std))
         model = FasterRCNN(image_mean, image_std, num_classes)
+        model = model.to(device)
         load_result = model.load_state_dict(model_state_dict, strict=False)  # Returns _IncompatibleKeys
         # You can inspect the loading result if needed
         if load_result.missing_keys:
