@@ -77,8 +77,13 @@ if __name__ == "__main__":
         #image_std = utils.compute_stds(test_set)
         print("Means: {}".format(image_mean))
         print("Stds: {}".format(image_std))
-        model = FasterRCNN(image_mean, image_std, num_classes)
-        model.load_state_dict(model_state_dict).to(device)
+        model = FasterRCNN(image_mean, image_std, num_classes
+        load_result = model.load_state_dict(model_state_dict, strict=False)  # Returns _IncompatibleKeys
+        # You can inspect the loading result if needed
+        if load_result.missing_keys:
+            print("Missing keys:", load_result.missing_keys)
+        if load_result.unexpected_keys:
+            print("Unexpected keys:", load_result.unexpected_keys)
 
             
     else :
